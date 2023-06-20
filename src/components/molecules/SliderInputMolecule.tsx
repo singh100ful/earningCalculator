@@ -32,6 +32,7 @@ export const SliderInputMolecule: React.FC<SliderInputMoleculeProps> = ({
           step={1}
           minimumTrackTintColor={Colors.primaryCTA}
           maximumTrackTintColor={Colors.primaryTextOpacity}
+          thumbTintColor={Colors.secondaryText}
         />
       </View>
     </View>

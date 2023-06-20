@@ -6,6 +6,8 @@ import {SeparatorAtom} from '../atoms/SeparatorAtom';
 import {TextAtom} from '../atoms/TextAtom';
 import {data} from '../../utils/data';
 import {FormikErrors} from 'formik';
+import {useDispatch} from 'react-redux';
+import {resetCalculate} from '../../store/reducers/poolSlice';
 
 interface DropdownMoleculeProps {
   title: string;
@@ -27,6 +29,13 @@ export const DropdownMolecule: React.FC<DropdownMoleculeProps> = ({
 }) => {
   const [modal, setModal] = React.useState(false);
   const values = value[fieldName];
+  const dispatch = useDispatch();
+
+  const handlePress = (id: number) => {
+    handleValue(fieldName, id);
+    setModal(!modal);
+    dispatch(resetCalculate());
+  };
   return (
     <View style={styles.mainContainer}>
       <Modal visible={modal} transparent animationType="slide">
@@ -42,10 +51,7 @@ export const DropdownMolecule: React.FC<DropdownMoleculeProps> = ({
               return (
                 <Pressable
                   key={index}
-                  onPress={() => {
-                    handleValue(fieldName, pool.id);
-                    setModal(!modal);
-                  }}
+                  onPress={() => handlePress(pool.id)}
                   style={styles.contentContainer}>
                   <Image
                     source={{uri: pool.poolImage}}

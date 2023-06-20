@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Colors} from '../../themes/Color';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../store/store';
@@ -13,12 +13,7 @@ export const ResultMolecule: React.FC<ResultMoleculeProps> = ({}) => {
   const {calculate} = useSelector((state: RootState) => state);
   return (
     <View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'baseline',
-          justifyContent: 'space-between',
-        }}>
+      <View style={styles.textContainer}>
         <TextAtom title="Invested money" />
         <TextAtom
           title={
@@ -34,12 +29,7 @@ export const ResultMolecule: React.FC<ResultMoleculeProps> = ({}) => {
           }}
         />
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'baseline',
-          justifyContent: 'space-between',
-        }}>
+      <View style={styles.textContainer}>
         <TextAtom title="Money you would have" />
         <View>
           <TextAtom
@@ -54,16 +44,15 @@ export const ResultMolecule: React.FC<ResultMoleculeProps> = ({}) => {
           />
           {calculate?.absoluteReturns ? (
             <View
-              style={{
-                backgroundColor:
-                  parseFloat(calculate?.absoluteReturns) < 0
-                    ? Colors.errorOpaciity
-                    : Colors.successOpacity,
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: defaultDimensions.smallScale,
-                borderRadius: defaultDimensions.smallScale,
-              }}>
+              style={[
+                styles.tagContainer,
+                {
+                  backgroundColor:
+                    parseFloat(calculate?.absoluteReturns) < 0
+                      ? Colors.errorOpaciity
+                      : Colors.successOpacity,
+                },
+              ]}>
               <TextAtom
                 title={
                   parseFloat(calculate?.absoluteReturns).toFixed(2) + '%' ?? ''
@@ -83,3 +72,17 @@ export const ResultMolecule: React.FC<ResultMoleculeProps> = ({}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  textContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+  },
+  tagContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: defaultDimensions.smallScale,
+    borderRadius: defaultDimensions.smallScale,
+  },
+});

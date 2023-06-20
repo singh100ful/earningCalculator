@@ -20,7 +20,13 @@ const initialState: PoolState = {
 export const poolSlice = createSlice({
   name: 'pool',
   initialState,
-  reducers: {},
+  reducers: {
+    resetCalculate: state => {
+      state.loading.calculate = false;
+      state.error.calculateErr = null;
+      state.calculate = null;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchPool.pending, state => {
@@ -71,5 +77,6 @@ export const poolSlice = createSlice({
   },
 });
 
+export const {resetCalculate} = poolSlice.actions;
 export const poolReducer = poolSlice.reducer;
 export default poolSlice.reducer;
